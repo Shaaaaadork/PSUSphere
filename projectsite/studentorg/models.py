@@ -1,7 +1,7 @@
-from django.db import models
+from django.db import models # type: ignore
 
 # Create your models here.
-from django.db import models
+from django.db import models # type: ignore
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
