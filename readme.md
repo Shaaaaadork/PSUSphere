@@ -22,3 +22,4 @@ This project helps the administrators to easily organize students groups, assign
 
 ## :busts_in_silhouette: Authors
 - Prince Charls B. Bustane
+- Alexander S. Oppura
