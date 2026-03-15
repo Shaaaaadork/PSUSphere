@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -16,10 +17,9 @@ SECRET_KEY = 'django-insecure-r726$(kimkj73%y6071)@bx@boo*v1bt8h7o1gdtjeiy=@5q58
 DEBUG = True
 
 ALLOWED_HOSTS = ['charlsue0131.pythonanywhere.com',
-                 'Oppuras.pythonanywhere.com',
-                 '127.0.0.1'
+                 'oppuras.pythonanywhere.com',
+                 '127.0.0.1', 'localhost', 'psusphere.pythonanywhere.com'
                 ]
-
 
 # Application definition
 
@@ -32,7 +32,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'studentorg',
     'widget_tweaks',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 ]
+
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+if "pythonanywhere" in socket.gethostname():
+    SITE_ID = 2 # production site (psusphere.pythonanywhere.com)
+else:
+    SITE_ID = 1 # local site (127.0.0.1:8000)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -40,9 +58,14 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+
+
 
 ROOT_URLCONF = 'projectsite.urls'
 
@@ -114,3 +137,18 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = (
 BASE_DIR / 'static',
 )
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/accounts/login/'  # where @login_required sends users
+LOGIN_REDIRECT_URL = '/home/'  # go to /home/ after login 
+LOGOUT_REDIRECT_URL = '/accounts/login/'  # after logout, go back to login
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'  # redirect after logout
+ACCOUNT_LOGOUT_ON_GET = True       # logout immediately on GET
+ACCOUNT_LOGIN_METHODS = {"username", "email"}  # allow login with username OR email
+ACCOUNT_SIGNUP_FIELDS = [
+    "username*",
+    "email*",
+    "password1*",
+    "password2*",
+]
