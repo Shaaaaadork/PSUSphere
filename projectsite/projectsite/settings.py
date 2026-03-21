@@ -141,7 +141,7 @@ BASE_DIR / 'static',
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/accounts/login/'  # where @login_required sends users
-LOGIN_REDIRECT_URL = '/home/'  # go to /home/ after login 
+LOGIN_REDIRECT_URL = 'home'  # go to /home/ after login 
 LOGOUT_REDIRECT_URL = '/accounts/login/'  # after logout, go back to login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'  # redirect after logout
 ACCOUNT_LOGOUT_ON_GET = True       # logout immediately on GET
